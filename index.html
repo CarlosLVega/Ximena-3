@@ -3,776 +3,148 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Para Ximena Alejandra</title>
-  <style>
-    :root {
-      --rose-50: #fff7fa;
-      --rose-100: #ffe5ed;
-      --rose-200: #ffc9d9;
-      --rose-300: #f6a8bf;
-      --rose-400: #de7d9c;
-      --rose-500: #b95b78;
-      --rose-700: #7f354d;
-      --gold: #c89b6d;
-      --gold-soft: #efd5bd;
-      --white: #ffffff;
-      --ink: #5b2637;
-      --shadow: 0 24px 70px rgba(127, 53, 77, 0.22);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      min-height: 100%;
-      background: var(--rose-50);
-    }
-
-    body {
-      min-height: 100vh;
-      margin: 0;
-      color: var(--ink);
-      font-family: "Poppins", "Segoe UI", Arial, sans-serif;
-      overflow-x: hidden;
-      background:
-        radial-gradient(circle at 14% 12%, rgba(255, 201, 217, 0.86), transparent 27rem),
-        radial-gradient(circle at 82% 8%, rgba(239, 213, 189, 0.72), transparent 24rem),
-        linear-gradient(135deg, #fffafa 0%, #ffeaf1 47%, #fff8fb 100%);
-    }
-
-    body.locked {
-      overflow: hidden;
-    }
-
-    button,
-    input {
-      font: inherit;
-    }
-
-    .script {
-      font-family: "Palatino Linotype", "Brush Script MT", "Segoe Script", cursive;
-      font-weight: 500;
-    }
-
-    .access-screen {
-      position: fixed;
-      inset: 0;
-      z-index: 20;
-      display: grid;
-      place-items: center;
-      padding: 22px;
-      overflow: hidden;
-      transition: opacity 900ms ease, visibility 900ms ease, transform 900ms ease;
-      background:
-        linear-gradient(rgba(255, 247, 250, 0.62), rgba(255, 229, 237, 0.72)),
-        radial-gradient(circle at 20% 18%, rgba(222, 125, 156, 0.28), transparent 20rem),
-        radial-gradient(circle at 78% 76%, rgba(200, 155, 109, 0.25), transparent 22rem);
-      backdrop-filter: blur(18px);
-    }
-
-    .access-screen.hidden {
-      opacity: 0;
-      visibility: hidden;
-      transform: scale(1.04);
-      pointer-events: none;
-    }
-
-    .access-card {
-      width: min(92vw, 450px);
-      position: relative;
-      padding: clamp(26px, 5vw, 44px);
-      border: 1px solid rgba(255, 255, 255, 0.78);
-      border-radius: 30px;
-      box-shadow: var(--shadow);
-      background: rgba(255, 255, 255, 0.66);
-      text-align: center;
-      overflow: hidden;
-    }
-
-    .access-card::before {
-      content: "";
-      position: absolute;
-      inset: 12px;
-      border: 1px solid rgba(200, 155, 109, 0.38);
-      border-radius: 22px;
-      pointer-events: none;
-    }
-
-    .lock-icon {
-      width: 122px;
-      max-width: 38vw;
-      margin-bottom: 12px;
-      filter: drop-shadow(0 18px 24px rgba(185, 91, 120, 0.28));
-      animation: heartbeat 2.2s ease-in-out infinite;
-    }
-
-    .access-card h1 {
-      position: relative;
-      margin: 6px 0 8px;
-      color: var(--rose-700);
-      font-size: clamp(2.15rem, 9vw, 3.5rem);
-      line-height: 0.95;
-    }
-
-    .access-card p {
-      position: relative;
-      margin: 0 auto 22px;
-      max-width: 32ch;
-      color: rgba(91, 38, 55, 0.78);
-      line-height: 1.55;
-    }
-
-    .field-wrap {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      gap: 12px;
-    }
-
-    .love-input {
-      width: 100%;
-      min-height: 54px;
-      padding: 0 18px;
-      border: 1px solid rgba(185, 91, 120, 0.22);
-      border-radius: 999px;
-      outline: none;
-      color: var(--ink);
-      background: rgba(255, 255, 255, 0.78);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
-      transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
-    }
-
-    .love-input:focus {
-      border-color: rgba(200, 155, 109, 0.82);
-      box-shadow: 0 0 0 5px rgba(200, 155, 109, 0.14);
-      transform: translateY(-1px);
-    }
-
-    .love-input::placeholder {
-      color: rgba(91, 38, 55, 0.45);
-    }
-
-    .unlock-btn,
-    .music-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      border: 0;
-      border-radius: 999px;
-      color: var(--white);
-      background: linear-gradient(135deg, var(--rose-500), var(--rose-400) 55%, var(--gold));
-      box-shadow: 0 16px 28px rgba(185, 91, 120, 0.27);
-      cursor: pointer;
-      transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
-    }
-
-    .unlock-btn {
-      width: 100%;
-      min-height: 56px;
-      padding: 0 22px;
-      font-weight: 700;
-    }
-
-    .unlock-btn:hover,
-    .music-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 20px 34px rgba(185, 91, 120, 0.32);
-      filter: saturate(1.05);
-    }
-
-    .hint {
-      margin-top: 14px;
-      color: rgba(91, 38, 55, 0.58);
-      font-size: 0.86rem;
-    }
-
-    .flower-field {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-      pointer-events: none;
-    }
-
-    .corner-flower {
-      position: fixed;
-      z-index: 1;
-      width: clamp(128px, 20vw, 260px);
-      opacity: 0.85;
-      pointer-events: none;
-    }
-
-    .corner-flower.left {
-      left: -34px;
-      bottom: -22px;
-      transform: rotate(-10deg);
-    }
-
-    .corner-flower.right {
-      top: -34px;
-      right: -38px;
-      transform: rotate(175deg);
-    }
-
-    .main {
-      position: relative;
-      z-index: 2;
-      min-height: 100vh;
-      display: grid;
-      align-items: center;
-      padding: clamp(28px, 5vw, 58px) 18px;
-    }
-
-    .hero {
-      width: min(1120px, 100%);
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
-      gap: clamp(22px, 5vw, 56px);
-      align-items: center;
-    }
-
-    .love-copy {
-      padding: clamp(10px, 2vw, 18px);
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin: 0 0 16px;
-      padding: 8px 14px;
-      border: 1px solid rgba(200, 155, 109, 0.32);
-      border-radius: 999px;
-      color: var(--rose-700);
-      background: rgba(255, 255, 255, 0.48);
-      font-size: 0.88rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .title {
-      margin: 0;
-      color: var(--rose-700);
-      font-size: clamp(3rem, 10vw, 7.2rem);
-      line-height: 0.88;
-      text-wrap: balance;
-      animation: titleGlow 3.8s ease-in-out infinite;
-    }
-
-    .subtitle {
-      margin: 18px 0 0;
-      max-width: 680px;
-      color: rgba(91, 38, 55, 0.84);
-      font-size: clamp(1.02rem, 2.3vw, 1.35rem);
-      line-height: 1.7;
-    }
-
-    .dedication {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 24px;
-    }
-
-    .dedication span {
-      padding: 10px 14px;
-      border: 1px solid rgba(255, 255, 255, 0.72);
-      border-radius: 999px;
-      color: var(--rose-700);
-      background: rgba(255, 255, 255, 0.6);
-      box-shadow: 0 12px 28px rgba(127, 53, 77, 0.09);
-      font-weight: 700;
-    }
-
-    .time-panel {
-      position: relative;
-      padding: clamp(22px, 4vw, 34px);
-      border: 1px solid rgba(255, 255, 255, 0.72);
-      border-radius: 26px;
-      background:
-        linear-gradient(145deg, rgba(255, 255, 255, 0.78), rgba(255, 229, 237, 0.66)),
-        radial-gradient(circle at 80% 0%, rgba(239, 213, 189, 0.36), transparent 15rem);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    .time-panel::after {
-      content: "";
-      position: absolute;
-      inset: 11px;
-      border: 1px solid rgba(200, 155, 109, 0.24);
-      border-radius: 18px;
-      pointer-events: none;
-    }
-
-    .panel-kicker {
-      position: relative;
-      z-index: 1;
-      margin: 0 0 8px;
-      color: var(--rose-500);
-      font-size: 0.86rem;
-      font-weight: 800;
-      letter-spacing: 0.11em;
-      text-transform: uppercase;
-    }
-
-    .clock {
-      position: relative;
-      z-index: 1;
-      margin: 0;
-      color: var(--rose-700);
-      font-size: clamp(2.45rem, 8vw, 4.85rem);
-      font-weight: 800;
-      line-height: 1;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .date-line {
-      position: relative;
-      z-index: 1;
-      margin: 10px 0 26px;
-      color: rgba(91, 38, 55, 0.68);
-      font-weight: 700;
-    }
-
-    .countdown {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-    }
-
-    .unit {
-      min-width: 0;
-      padding: 16px 8px 14px;
-      border: 1px solid rgba(185, 91, 120, 0.14);
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.58);
-      text-align: center;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
-    }
-
-    .unit strong {
-      display: block;
-      color: var(--rose-700);
-      font-size: clamp(1.5rem, 5vw, 2.6rem);
-      line-height: 1;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .unit span {
-      display: block;
-      margin-top: 8px;
-      color: rgba(91, 38, 55, 0.62);
-      font-size: 0.78rem;
-      font-weight: 800;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-    }
-
-    .birthday-message {
-      position: relative;
-      z-index: 1;
-      display: none;
-      margin: 24px 0 0;
-      padding: 18px;
-      border-radius: 22px;
-      color: #7a2443;
-      background: rgba(255, 255, 255, 0.72);
-      box-shadow: 0 16px 28px rgba(185, 91, 120, 0.2);
-      font-size: clamp(1.45rem, 5vw, 2.8rem);
-      line-height: 1.12;
-      text-align: center;
-      animation: celebrate 900ms ease-in-out infinite alternate;
-    }
-
-    .birthday-message.show {
-      display: block;
-    }
-
-    .music-btn {
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      z-index: 8;
-      width: 48px;
-      height: 48px;
-      padding: 0;
-    }
-
-    .petal {
-      position: fixed;
-      z-index: 4;
-      top: -42px;
-      width: var(--size);
-      height: calc(var(--size) * 0.72);
-      border-radius: 90% 12% 90% 12%;
-      background:
-        radial-gradient(circle at 28% 28%, rgba(255, 255, 255, 0.75), transparent 26%),
-        linear-gradient(135deg, rgba(255, 201, 217, 0.95), rgba(222, 125, 156, 0.9));
-      box-shadow: 0 8px 18px rgba(185, 91, 120, 0.14);
-      opacity: var(--opacity);
-      pointer-events: none;
-      animation: fall var(--duration) linear var(--delay) infinite;
-    }
-
-    @keyframes heartbeat {
-      0%,
-      100% {
-        transform: scale(1);
-      }
-
-      45% {
-        transform: scale(1.045);
-      }
-    }
-
-    @keyframes titleGlow {
-      0%,
-      100% {
-        text-shadow: 0 10px 34px rgba(185, 91, 120, 0.2);
-      }
-
-      50% {
-        text-shadow: 0 12px 42px rgba(200, 155, 109, 0.34);
-      }
-    }
-
-    @keyframes celebrate {
-      from {
-        transform: scale(1);
-        filter: brightness(1);
-      }
-
-      to {
-        transform: scale(1.035);
-        filter: brightness(1.12);
-      }
-    }
-
-    @keyframes fall {
-      0% {
-        transform: translate3d(var(--start-x), -60px, 0) rotate(0deg);
-      }
-
-      50% {
-        transform: translate3d(calc(var(--start-x) + var(--drift)), 52vh, 0) rotate(190deg);
-      }
-
-      100% {
-        transform: translate3d(calc(var(--start-x) - var(--drift)), 108vh, 0) rotate(380deg);
-      }
-    }
-
-    @media (max-width: 830px) {
-      .hero {
-        grid-template-columns: 1fr;
-        gap: 24px;
-      }
-
-      .love-copy {
-        text-align: center;
-      }
-
-      .dedication {
-        justify-content: center;
-      }
-
-      .time-panel {
-        width: min(100%, 560px);
-        margin: 0 auto;
-      }
-    }
-
-    @media (max-width: 520px) {
-      .main {
-        align-items: start;
-        padding-top: 30px;
-      }
-
-      .countdown {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .corner-flower {
-        width: 150px;
-        opacity: 0.58;
-      }
-
-      .access-card {
-        border-radius: 24px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        scroll-behavior: auto !important;
-        animation-duration: 0.001ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.001ms !important;
-      }
-
-      .petal {
-        display: none;
-      }
-    }
-  </style>
+  <meta name="theme-color" content="#fff4f7" />
+  <title>Feliz Cumpleaños, Ximena Alejandra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="locked">
-  <div class="flower-field" aria-hidden="true"></div>
+  <canvas class="ambient-canvas" id="ambientCanvas" aria-hidden="true"></canvas>
 
-  <svg class="corner-flower left" viewBox="0 0 260 260" aria-hidden="true">
-    <g fill="none" stroke-linecap="round">
-      <path d="M73 226C88 176 121 129 188 75" stroke="#85a977" stroke-width="7" />
-      <path d="M98 188C80 166 65 145 53 119" stroke="#85a977" stroke-width="5" />
-      <path d="M132 149C116 124 104 102 97 78" stroke="#85a977" stroke-width="5" />
-      <path d="M163 116C169 88 181 62 201 39" stroke="#85a977" stroke-width="5" />
-    </g>
-    <g>
-      <ellipse cx="52" cy="111" rx="22" ry="36" fill="#f6a8bf" transform="rotate(-33 52 111)" />
-      <ellipse cx="84" cy="82" rx="24" ry="38" fill="#ffc9d9" transform="rotate(18 84 82)" />
-      <ellipse cx="110" cy="97" rx="23" ry="35" fill="#de7d9c" transform="rotate(70 110 97)" />
-      <circle cx="83" cy="99" r="15" fill="#c89b6d" />
-      <ellipse cx="190" cy="61" rx="24" ry="39" fill="#ffc9d9" transform="rotate(22 190 61)" />
-      <ellipse cx="223" cy="53" rx="22" ry="34" fill="#f6a8bf" transform="rotate(75 223 53)" />
-      <ellipse cx="204" cy="30" rx="22" ry="33" fill="#de7d9c" transform="rotate(-24 204 30)" />
-      <circle cx="204" cy="54" r="13" fill="#c89b6d" />
-      <ellipse cx="77" cy="190" rx="24" ry="38" fill="#ffe5ed" transform="rotate(43 77 190)" />
-      <ellipse cx="111" cy="184" rx="20" ry="33" fill="#f6a8bf" transform="rotate(93 111 184)" />
-      <circle cx="91" cy="184" r="12" fill="#c89b6d" />
-    </g>
-  </svg>
+  <div class="floral-corner floral-corner--left" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="floral-corner floral-corner--right" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
 
-  <svg class="corner-flower right" viewBox="0 0 260 260" aria-hidden="true">
-    <g fill="none" stroke-linecap="round">
-      <path d="M73 226C88 176 121 129 188 75" stroke="#85a977" stroke-width="7" />
-      <path d="M98 188C80 166 65 145 53 119" stroke="#85a977" stroke-width="5" />
-      <path d="M132 149C116 124 104 102 97 78" stroke="#85a977" stroke-width="5" />
-      <path d="M163 116C169 88 181 62 201 39" stroke="#85a977" stroke-width="5" />
-    </g>
-    <g>
-      <ellipse cx="52" cy="111" rx="22" ry="36" fill="#f6a8bf" transform="rotate(-33 52 111)" />
-      <ellipse cx="84" cy="82" rx="24" ry="38" fill="#ffc9d9" transform="rotate(18 84 82)" />
-      <ellipse cx="110" cy="97" rx="23" ry="35" fill="#de7d9c" transform="rotate(70 110 97)" />
-      <circle cx="83" cy="99" r="15" fill="#c89b6d" />
-      <ellipse cx="190" cy="61" rx="24" ry="39" fill="#ffc9d9" transform="rotate(22 190 61)" />
-      <ellipse cx="223" cy="53" rx="22" ry="34" fill="#f6a8bf" transform="rotate(75 223 53)" />
-      <ellipse cx="204" cy="30" rx="22" ry="33" fill="#de7d9c" transform="rotate(-24 204 30)" />
-      <circle cx="204" cy="54" r="13" fill="#c89b6d" />
-      <ellipse cx="77" cy="190" rx="24" ry="38" fill="#ffe5ed" transform="rotate(43 77 190)" />
-      <ellipse cx="111" cy="184" rx="20" ry="33" fill="#f6a8bf" transform="rotate(93 111 184)" />
-      <circle cx="91" cy="184" r="12" fill="#c89b6d" />
-    </g>
-  </svg>
+  <section class="access-screen" id="accessScreen" aria-label="El Candado del Corazón">
+    <div class="curtain curtain--left"></div>
+    <div class="curtain curtain--right"></div>
 
-  <section class="access-screen" id="accessScreen" aria-label="Acceso a la sorpresa">
-    <div class="access-card">
-      <svg class="lock-icon" viewBox="0 0 160 160" role="img" aria-label="Corazon con candado">
-        <defs>
-          <linearGradient id="heartGradient" x1="18" x2="142" y1="22" y2="138" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#ffc9d9" />
-            <stop offset="0.56" stop-color="#de7d9c" />
-            <stop offset="1" stop-color="#c89b6d" />
-          </linearGradient>
-          <linearGradient id="lockGradient" x1="52" x2="108" y1="58" y2="126" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#fff7fa" />
-            <stop offset="1" stop-color="#efd5bd" />
-          </linearGradient>
-        </defs>
-        <path fill="url(#heartGradient)" d="M80 137S25 104 18 61c-4-25 11-43 33-43 13 0 23 6 29 17 6-11 16-17 29-17 22 0 37 18 33 43-7 43-62 76-62 76Z" />
-        <path fill="none" stroke="#fff7fa" stroke-linecap="round" stroke-width="8" d="M60 78V62c0-14 9-24 20-24s20 10 20 24v16" />
-        <rect width="62" height="50" x="49" y="75" fill="url(#lockGradient)" rx="15" />
-        <circle cx="80" cy="97" r="7" fill="#b95b78" />
-        <path fill="#b95b78" d="M77 101h6l4 15H73l4-15Z" />
-      </svg>
-      <h1 class="script">Sorpresa privada</h1>
-      <p>Solo la dueña de mi corazón puede abrir este rincón hecho con todo mi amor.</p>
-      <form class="field-wrap" id="accessForm">
-        <input class="love-input" id="loveCode" type="text" autocomplete="off" placeholder="Contraseña de amor: tu apodo favorito" aria-label="Codigo de acceso" />
-        <button class="unlock-btn" type="submit">Desbloquear mi corazón</button>
-      </form>
-      <div class="hint">Pista: cualquier palabra bonita abre esta sorpresa.</div>
-    </div>
+    <form class="access-panel" id="accessForm">
+      <button class="heart-lock" id="heartLock" type="submit" aria-label="Abrir el candado del corazón">
+        <svg viewBox="0 0 180 180" role="img" aria-labelledby="heartLockTitle">
+          <title id="heartLockTitle">Corazón con candado</title>
+          <defs>
+            <linearGradient id="heartFill" x1="25" x2="156" y1="20" y2="160" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#ffd8e4" />
+              <stop offset="0.48" stop-color="#d87896" />
+              <stop offset="1" stop-color="#c7986f" />
+            </linearGradient>
+            <linearGradient id="lockFill" x1="58" x2="123" y1="70" y2="140" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#fffdfb" />
+              <stop offset="1" stop-color="#f0d2b5" />
+            </linearGradient>
+          </defs>
+          <path class="heart-path" fill="url(#heartFill)" d="M90 158S25 119 17 69c-5-30 13-52 39-52 15 0 27 7 34 20 7-13 19-20 34-20 26 0 44 22 39 52-8 50-73 89-73 89Z" />
+          <path class="shackle" fill="none" stroke="#fff9fb" stroke-linecap="round" stroke-width="9" d="M67 89V68c0-18 10-31 23-31s23 13 23 31v21" />
+          <rect class="lock-body" width="70" height="58" x="55" y="82" fill="url(#lockFill)" rx="17" />
+          <circle cx="90" cy="106" r="8" fill="#9b3e58" />
+          <path fill="#9b3e58" d="M86 113h8l5 18H81l5-18Z" />
+        </svg>
+      </button>
+
+      <p class="eyebrow">Acceso reservado</p>
+      <h1>El Candado del Corazón</h1>
+      <p class="access-copy">Escribe una palabra bonita para abrir este lugar hecho solo para Ximena Alejandra.</p>
+      <label class="input-shell">
+        <span>Contraseña de amor</span>
+        <input id="loveCode" type="text" autocomplete="off" placeholder="Ej: princesa" aria-label="Contraseña de amor" />
+      </label>
+      <button class="primary-button" type="submit">Desbloquear sorpresa</button>
+      <p class="micro-copy">Pista: cualquier palabra escrita con cariño funciona.</p>
+    </form>
   </section>
 
-  <main class="main" id="mainContent" aria-live="polite">
-    <section class="hero">
-      <div class="love-copy">
-        <p class="eyebrow">29 de junio · una vida celebrándote</p>
-        <h2 class="title script">¡Feliz casi cumpleaños, Ximena Alejandra!</h2>
-        <p class="subtitle">
-          Para la niña de mis ojos, mi princesa hermosa, mi amor, mi consentida y mi todo.
-          Esta pequeña sorpresa cuenta los segundos para celebrar a la mujer que hace mi mundo más bonito.
+  <main class="site-shell" id="siteShell">
+    <section class="hero-section" id="inicio">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">29 de junio · 22 años de una vida preciosa</p>
+        <h2>¡Feliz Cumpleaños, Ximena Alejandra! 👑💖</h2>
+        <p class="dynamic-line" id="dynamicLine">Para mi princesa</p>
+        <p class="hero-text">
+          Hoy el mundo se viste de rosa, dorado y flores porque celebra a la mujer que vuelve todo más tierno,
+          más luminoso y más nuestro.
         </p>
-        <div class="dedication" aria-label="Dedicatorias">
-          <span>Para la niña de mis ojos</span>
-          <span>Mi princesa hermosa</span>
-          <span>Mi consentida, mi todo</span>
+      </div>
+      <div class="hero-orbit reveal" aria-hidden="true">
+        <div class="portrait-medallion">
+          <span class="script-initial">X</span>
+          <span class="crown">♕</span>
         </div>
+        <span class="orbit orbit--one"></span>
+        <span class="orbit orbit--two"></span>
+        <span class="orbit-flower orbit-flower--a"></span>
+        <span class="orbit-flower orbit-flower--b"></span>
+        <span class="orbit-flower orbit-flower--c"></span>
+      </div>
+    </section>
+
+    <section class="section timeline-section" id="razones">
+      <div class="section-heading reveal">
+        <p class="eyebrow">El Viaje del Tiempo</p>
+        <h2>22 Años, 22 Razones</h2>
+        <p>
+          Cada año guarda una luz distinta de tu historia. Edita las frases en <strong>script.js</strong>
+          y convierte cada tarjeta en un recuerdo completamente tuyo.
+        </p>
+      </div>
+      <div class="timeline" id="timeline" aria-label="Línea de tiempo de Ximena"></div>
+    </section>
+
+    <section class="section cake-section" id="pastel">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Mecánica de deseos</p>
+        <h2>El Pastel de Cumpleaños</h2>
+        <p>Tócalo una vez para pedir el deseo y otra vez para soplar las velitas.</p>
       </div>
 
-      <aside class="time-panel" aria-label="Reloj y cuenta regresiva">
-        <p class="panel-kicker">Hora actual</p>
-        <p class="clock" id="clock">00:00:00</p>
-        <p class="date-line" id="dateLine">Preparando la magia...</p>
-        <p class="panel-kicker">Falta para tu cumpleaños</p>
-        <div class="countdown" id="countdown">
-          <div class="unit"><strong id="days">00</strong><span>Días</span></div>
-          <div class="unit"><strong id="hours">00</strong><span>Horas</span></div>
-          <div class="unit"><strong id="minutes">00</strong><span>Minutos</span></div>
-          <div class="unit"><strong id="seconds">00</strong><span>Segundos</span></div>
-        </div>
-        <div class="birthday-message script" id="birthdayMessage">¡FELIZ CUMPLEAÑOS, MI PRINCESA HERMOSA! 👑💖</div>
-      </aside>
+      <div class="cake-stage reveal">
+        <p class="floating-hint" id="cakeHint">Toca el pastel y pide un deseo...</p>
+        <button class="cake-button" id="cakeButton" type="button" aria-label="Pastel interactivo de cumpleaños">
+          <span class="spark-layer" id="sparkLayer"></span>
+          <span class="cake">
+            <span class="candles">
+              <span class="candle"><i></i><b></b></span>
+              <span class="candle"><i></i><b></b></span>
+              <span class="candle"><i></i><b></b></span>
+            </span>
+            <span class="cake-top"></span>
+            <span class="cake-tier cake-tier--top"></span>
+            <span class="cake-tier cake-tier--middle"></span>
+            <span class="cake-tier cake-tier--bottom"></span>
+            <span class="cake-plate"></span>
+          </span>
+        </button>
+        <p class="cake-message" id="cakeMessage" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="section love-wall-section" id="mimos">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Mural de Amor Incondicional</p>
+        <h2>Notas de Amor Flotantes</h2>
+        <p>Un botón para llenar la pantalla con pequeños mimos de mi corazón al suyo.</p>
+      </div>
+      <div class="love-wall reveal" id="loveWall">
+        <button class="primary-button" id="mimoButton" type="button">Recibir un mimo</button>
+        <div class="note-cloud" id="noteCloud" aria-live="polite"></div>
+      </div>
     </section>
   </main>
 
-  <button class="music-btn" id="musicBtn" type="button" aria-label="Activar melodia suave" title="Activar melodia suave">
-    <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-      <path fill="currentColor" d="M12 3v12.3A3.5 3.5 0 1 1 10 12.1V6h9V3h-7Z" />
-    </svg>
+  <div class="wish-overlay" id="wishOverlay" aria-hidden="true">
+    <p>¡Que todos tus deseos se cumplan, mi vida!</p>
+    <span>Te mereces el universo entero</span>
+  </div>
+
+  <button class="music-button" id="musicButton" type="button" aria-label="Activar melodía suave" title="Activar melodía suave">
+    ♪
   </button>
 
-  <script>
-    const accessScreen = document.getElementById("accessScreen");
-    const accessForm = document.getElementById("accessForm");
-    const loveCode = document.getElementById("loveCode");
-    const clock = document.getElementById("clock");
-    const dateLine = document.getElementById("dateLine");
-    const countdown = document.getElementById("countdown");
-    const birthdayMessage = document.getElementById("birthdayMessage");
-    const musicBtn = document.getElementById("musicBtn");
-    const birthdayTarget = new Date("2026-06-29T00:00:00-05:00").getTime();
-    let audioContext;
-    let musicPlaying = false;
-    let musicTimer;
-
-    function pad(value) {
-      return String(value).padStart(2, "0");
-    }
-
-    function unlockSurprise(event) {
-      event.preventDefault();
-
-      if (!loveCode.value.trim()) {
-        loveCode.focus();
-        loveCode.animate(
-          [
-            { transform: "translateX(0)" },
-            { transform: "translateX(-8px)" },
-            { transform: "translateX(8px)" },
-            { transform: "translateX(0)" }
-          ],
-          { duration: 260, easing: "ease-out" }
-        );
-        return;
-      }
-
-      accessScreen.classList.add("hidden");
-      document.body.classList.remove("locked");
-      setTimeout(() => accessScreen.remove(), 1000);
-    }
-
-    function updateClockAndCountdown() {
-      const now = new Date();
-      const formatter = new Intl.DateTimeFormat("es-CO", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-      });
-
-      clock.textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
-      dateLine.textContent = formatter.format(now);
-
-      const remaining = birthdayTarget - now.getTime();
-
-      if (remaining <= 0) {
-        countdown.style.display = "none";
-        birthdayMessage.classList.add("show");
-        return;
-      }
-
-      const totalSeconds = Math.floor(remaining / 1000);
-      const days = Math.floor(totalSeconds / 86400);
-      const hours = Math.floor((totalSeconds % 86400) / 3600);
-      const minutes = Math.floor((totalSeconds % 3600) / 60);
-      const seconds = totalSeconds % 60;
-
-      document.getElementById("days").textContent = pad(days);
-      document.getElementById("hours").textContent = pad(hours);
-      document.getElementById("minutes").textContent = pad(minutes);
-      document.getElementById("seconds").textContent = pad(seconds);
-    }
-
-    function createPetals() {
-      const field = document.querySelector(".flower-field");
-      const count = window.matchMedia("(max-width: 560px)").matches ? 24 : 42;
-
-      for (let i = 0; i < count; i += 1) {
-        const petal = document.createElement("span");
-        const size = 12 + Math.random() * 18;
-        const startX = Math.random() * 100;
-        const drift = (Math.random() * 24 + 8) * (Math.random() > 0.5 ? 1 : -1);
-
-        petal.className = "petal";
-        petal.style.setProperty("--size", `${size}px`);
-        petal.style.setProperty("--start-x", `${startX}vw`);
-        petal.style.setProperty("--drift", `${drift}vw`);
-        petal.style.setProperty("--duration", `${9 + Math.random() * 9}s`);
-        petal.style.setProperty("--delay", `${Math.random() * -12}s`);
-        petal.style.setProperty("--opacity", `${0.42 + Math.random() * 0.48}`);
-        field.appendChild(petal);
-      }
-    }
-
-    function playSoftMelody() {
-      if (!audioContext) {
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      }
-
-      if (musicPlaying) {
-        clearInterval(musicTimer);
-        musicPlaying = false;
-        musicBtn.style.opacity = "0.78";
-        return;
-      }
-
-      const notes = [523.25, 659.25, 783.99, 659.25, 698.46, 880, 783.99];
-      let index = 0;
-      musicPlaying = true;
-      musicBtn.style.opacity = "1";
-
-      function playNote() {
-        const oscillator = audioContext.createOscillator();
-        const gain = audioContext.createGain();
-        oscillator.type = "sine";
-        oscillator.frequency.value = notes[index % notes.length];
-        gain.gain.setValueAtTime(0.0001, audioContext.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.055, audioContext.currentTime + 0.03);
-        gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.55);
-        oscillator.connect(gain);
-        gain.connect(audioContext.destination);
-        oscillator.start();
-        oscillator.stop(audioContext.currentTime + 0.58);
-        index += 1;
-      }
-
-      playNote();
-      musicTimer = setInterval(playNote, 720);
-    }
-
-    accessForm.addEventListener("submit", unlockSurprise);
-    musicBtn.addEventListener("click", playSoftMelody);
-    createPetals();
-    updateClockAndCountdown();
-    setInterval(updateClockAndCountdown, 1000);
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
